@@ -25,18 +25,35 @@ function initLightbox(): void {
   const lightbox = document.getElementById("lightbox");
   const overlay = document.getElementById("lightboxOverlay");
   const box = document.getElementById("lightboxBox");
+  const photo = document.getElementById("lightboxPhoto");
+  const img = document.getElementById("lightboxImg") as HTMLImageElement | null;
   const closeBtn = document.getElementById("lightboxClose");
   const nameEl = document.getElementById("lightboxName");
   const noteEl = document.getElementById("lightboxNote");
   const productCards = document.querySelectorAll<HTMLButtonElement>(".product-card");
 
-  if (!lightbox || !overlay || !box || !closeBtn || !nameEl || !noteEl) return;
+  if (!lightbox || !overlay || !box || !photo || !img || !closeBtn || !nameEl || !noteEl) return;
 
   box.addEventListener("click", (e) => e.stopPropagation());
 
   const open = (card: HTMLButtonElement) => {
     nameEl.textContent = card.dataset.name ?? "";
     noteEl.textContent = card.dataset.note ?? "";
+
+    const src = card.dataset.lightboxSrc;
+    if (src) {
+      img.src = src;
+      img.width = Number(card.dataset.lightboxWidth) || 0;
+      img.height = Number(card.dataset.lightboxHeight) || 0;
+      img.alt = card.dataset.name ?? "";
+      img.hidden = false;
+      photo.classList.add("has-image");
+    } else {
+      img.hidden = true;
+      img.removeAttribute("src");
+      photo.classList.remove("has-image");
+    }
+
     lightbox.hidden = false;
   };
 

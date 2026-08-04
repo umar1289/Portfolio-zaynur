@@ -1,4 +1,8 @@
 ---
+import { Picture } from "astro:assets";
+import { getHeroImage } from "../utils/images";
+
+const heroImage = getHeroImage();
 ---
 
 <section id="top" class="hero">
@@ -25,9 +29,26 @@
       </div>
     </div>
 
-    <div class="hero-photo placeholder">
-      <div class="placeholder-stripes"></div>
-      <div class="placeholder-label">sex surati — gorizontal, 2400×900</div>
+    <div class={`hero-photo placeholder${heroImage ? " has-image" : ""}`}>
+      {
+        heroImage ? (
+          <Picture
+            src={heroImage}
+            alt="Zaynur Diyor Fayz ishlab chiqarish sexi"
+            formats={["avif", "webp"]}
+            widths={[600, 1200, 1800]}
+            sizes="(min-width: 1240px) 1192px, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            decoding="sync"
+          />
+        ) : (
+          <>
+            <div class="placeholder-stripes" />
+            <div class="placeholder-label">sex surati — gorizontal, 2400×900</div>
+          </>
+        )
+      }
     </div>
   </div>
 </section>

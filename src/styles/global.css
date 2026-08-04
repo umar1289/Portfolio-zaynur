@@ -190,6 +190,31 @@ button { font-family: inherit; }
   border: 1px solid var(--border-dash);
 }
 
+/* Once a real photo lands in src/assets/images/, the dashed placeholder
+   box becomes a plain, clipped photo frame. */
+.placeholder.has-image {
+  border-color: transparent;
+  background: transparent;
+}
+.placeholder picture,
+.placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.lightbox-photo.has-image .placeholder-stripes,
+.lightbox-photo.has-image .placeholder-label {
+  display: none;
+}
+.lightbox-photo img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* Hero */
 .hero { padding: 72px 0 0; }
 .hero-grid {

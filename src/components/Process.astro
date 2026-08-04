@@ -1,4 +1,9 @@
 ---
+import { Picture } from "astro:assets";
+import { getProcessImage } from "../utils/images";
+
+const processImage = getProcessImage();
+
 const steps = [
   { num: "01", title: "Mato qabuli va tekshiruv", desc: "Rulon zichligi, rangi va o'lchami kelgan hujjat bilan solishtiriladi. Nuqsonli qism ishga qo'yilmaydi." },
   { num: "02", title: "Lekalo va mato kesish", desc: "O'lcham jadvali bo'yicha lekalo tayyorlanadi, mato qatlab kesiladi. Har o'lcham alohida partiyaga belgilanadi." },
@@ -15,9 +20,25 @@ const steps = [
       <div>
         <h2 class="section-title">Xomashyodan qadoqlangan partiyagacha</h2>
         <p class="process-desc">Har bir buyurtma bir xil ketma-ketlikda o'tadi. Har bosqichda mas'ul usta bor, har partiya raqamlanadi.</p>
-        <div class="process-photo placeholder">
-          <div class="placeholder-stripes"></div>
-          <div class="placeholder-label">jarayon surati — vertikal</div>
+        <div class={`process-photo placeholder${processImage ? " has-image" : ""}`}>
+          {
+            processImage ? (
+              <Picture
+                src={processImage}
+                alt="Tikuv jarayoni"
+                formats={["avif", "webp"]}
+                widths={[400, 800, 1200]}
+                sizes="(min-width: 992px) 560px, 100vw"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <>
+                <div class="placeholder-stripes" />
+                <div class="placeholder-label">jarayon surati — vertikal</div>
+              </>
+            )
+          }
         </div>
       </div>
       <div class="process-steps">

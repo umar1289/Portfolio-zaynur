@@ -1,6 +1,8 @@
 ---
+import { Picture, getImage } from "astro:assets";
 import type { Product } from "../data/products";
 import { categoryLabel } from "../data/categories";
+import { findProductImage } from "../utils/images";
 
 interface Props {
   item: Product;
@@ -8,6 +10,12 @@ interface Props {
 
 const { item } = Astro.props;
 const label = categoryLabel(item.category);
+const image = findProductImage(item.image);
+
+// A single larger rendition for the lightbox, computed at build time and
+// handed to the client script via data-attributes (the lightbox is one
+// shared modal populated by JS, so it can't use <Picture> directly).
+const lightboxImage = image ? await getImage({ src: image, format: "webp", width: 900 }) : undefined;
 ---
 
 <button
@@ -16,10 +24,29 @@ const label = categoryLabel(item.category);
   data-cat={item.category}
   data-name={item.name}
   data-note={`${item.note} · ${label}`}
+  data-lightbox-src={lightboxImage?.src}
+  data-lightbox-width={lightboxImage?.attributes.width}
+  data-lightbox-height={lightboxImage?.attributes.height}
 >
-  <div class="product-photo placeholder">
-    <div class="placeholder-stripes"></div>
-    <div class="placeholder-label">surat 1200×1600</div>
+  <div class={`product-photo placeholder${image ? " has-image" : ""}`}>
+    {
+      image ? (
+        <Picture
+          src={image}
+          alt={item.name}
+          formats={["avif", "webp"]}
+          widths={[300, 600]}
+          sizes="(min-width: 1240px) 220px, (min-width: 640px) 30vw, 45vw"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <>
+          <div class="placeholder-stripes" />
+          <div class="placeholder-label">surat 1200×1600</div>
+        </>
+      )
+    }
   </div>
   <div class="product-meta">
     <div class="product-name">{item.name}</div>
