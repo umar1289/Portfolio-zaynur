@@ -1,0 +1,25 @@
+---
+import { faqs } from "../data/faqs";
+---
+
+<section id="savollar" class="faq">
+  <div class="wrap">
+    <div class="section-eyebrow">06 / Savollar</div>
+    <div class="faq-grid">
+      <h2 class="section-title">Ko'p so'raladigan savollar</h2>
+      <div class="faq-list" id="faqList">
+        {
+          faqs.map((faq, idx) => (
+            <div class={`faq-item${idx === 0 ? " is-open" : ""}`}>
+              <button type="button" class="faq-question" aria-expanded={idx === 0}>
+                <span class="faq-sign">{idx === 0 ? "—" : "+"}</span>
+                <span class="faq-q">{faq.q}</span>
+              </button>
+              <div class="faq-answer">{faq.a}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

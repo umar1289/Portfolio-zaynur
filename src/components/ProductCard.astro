@@ -1,0 +1,29 @@
+---
+import type { Product } from "../data/products";
+import { categoryLabel } from "../data/categories";
+
+interface Props {
+  item: Product;
+}
+
+const { item } = Astro.props;
+const label = categoryLabel(item.category);
+---
+
+<button
+  type="button"
+  class="product-card"
+  data-cat={item.category}
+  data-name={item.name}
+  data-note={`${item.note} · ${label}`}
+>
+  <div class="product-photo placeholder">
+    <div class="placeholder-stripes"></div>
+    <div class="placeholder-label">surat 1200×1600</div>
+  </div>
+  <div class="product-meta">
+    <div class="product-name">{item.name}</div>
+    <div class="product-cat">{label}</div>
+  </div>
+  <div class="product-note">{item.note}</div>
+</button>

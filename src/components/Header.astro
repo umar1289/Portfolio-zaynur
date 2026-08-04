@@ -1,0 +1,24 @@
+---
+import { siteConfig } from "../data/config";
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark">ZDF</span>
+      <span class="logo-sub">{siteConfig.shortName}<br />ishlab chiqarish kooperativi</span>
+    </a>
+    <nav class="nav">
+      <a href="#portfolio">Mahsulotlar</a>
+      <a href="#jarayon">Qanday ishlaymiz</a>
+      <a href="#jihoz">Jihozlar</a>
+      <a href="#savollar">Savollar</a>
+      <div class="lang-switch">
+        <button type="button" class="lang-btn is-active">UZ</button>
+        <button type="button" class="lang-btn" title="Tez orada" disabled>RU</button>
+        <button type="button" class="lang-btn" title="Tez orada" disabled>EN</button>
+      </div>
+      <a href={siteConfig.telegramUrl} target="_blank" rel="noopener" class="btn btn-primary">Telegram</a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,28 @@
+---
+const stats = [
+  { number: "18", suffix: "", label: "yillik ishlab chiqarish tajribasi" },
+  { number: "80", suffix: "+", label: "tikuvchi va usta bir smenada" },
+  { number: "45 000", suffix: "", label: "dona oylik ishlab chiqarish quvvati" },
+  { number: "12", suffix: "+", label: "doimiy davlat va xususiy buyurtmachi" },
+];
+---
+
+<section class="stats">
+  <div class="wrap">
+    <div class="section-eyebrow">01 / Raqamlar</div>
+    <div class="stat-grid">
+      {
+        stats.map((s) => (
+          <div class="stat">
+            <div class="stat-number">
+              {s.number}
+              {s.suffix && <span class="accent">{s.suffix}</span>}
+            </div>
+            <div class="stat-label">{s.label}</div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="stats-note">* Raqamlar 2026 yil holatiga ko'ra. Buyurtma hajmi kelishuv asosida.</div>
+  </div>
+</section>

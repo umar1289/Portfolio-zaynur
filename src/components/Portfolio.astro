@@ -1,0 +1,27 @@
+---
+import { categories } from "../data/categories";
+import { products } from "../data/products";
+import ProductCard from "./ProductCard.astro";
+---
+
+<section id="portfolio" class="portfolio">
+  <div class="wrap">
+    <div class="section-eyebrow section-eyebrow-on-dark">02 / Mahsulotlar</div>
+    <div class="portfolio-head">
+      <h2 class="section-title section-title-on-dark">Nima tikamiz</h2>
+      <div class="filter-list" id="filterList">
+        {
+          categories.map((c, i) => (
+            <button type="button" class={`filter-btn${i === 0 ? " is-active" : ""}`} data-filter={c.id}>
+              {c.label}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="portfolio-grid" id="portfolioGrid">
+      {products.map((item) => <ProductCard item={item} />)}
+    </div>
+  </div>
+</section>

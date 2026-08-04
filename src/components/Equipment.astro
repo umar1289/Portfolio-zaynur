@@ -1,0 +1,29 @@
+---
+const equipment = [
+  { count: "60", title: "To'g'ri tikuv mashinalari", desc: "Sanoat tipida, avtomatik ip kesish bilan" },
+  { count: "14", title: "Overlok va rasstrochka", desc: "4 va 5 ipli chok uchun" },
+  { count: "04", title: "Kesish stoli va tasmali pichoq", desc: "Ko'p qatlamli kesish uchun" },
+  { count: "02", title: "Tugma va ilgak mashinasi", desc: "Forma va shim uchun avtomatik" },
+  { count: "02", title: "Kompyuterli naqsh (vishivka)", desc: "Shevron, nishon va logotip tikish" },
+  { count: "06", title: "Bug'li dazmol stollari", desc: "Yakuniy shakl berish uchun" },
+];
+---
+
+<section id="jihoz" class="equipment">
+  <div class="wrap">
+    <div class="section-eyebrow">05 / Jihozlar</div>
+    <h2 class="section-title">Sexdagi asosiy jihozlar</h2>
+    <div class="equipment-grid">
+      {
+        equipment.map((e) => (
+          <div class="equipment-item">
+            <div class="equipment-count">{e.count}</div>
+            <div class="equipment-title">{e.title}</div>
+            <div class="equipment-desc">{e.desc}</div>
+          </div>
+        ))
+      }
+    </div>
+    <div class="stats-note">* Jihoz miqdori taxminiy — aniq ro'yxatni bog'langanda beramiz.</div>
+  </div>
+</section>
