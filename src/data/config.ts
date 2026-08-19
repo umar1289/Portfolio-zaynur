@@ -1,26 +1,22 @@
 /**
- * Site-wide constants. Real contact details are still placeholders from the
- * original design export — update `telegramUsername` and `phone` before launch.
+ * Site-wide constants.
  */
 export const siteConfig = {
   orgName: "«Zaynur Diyor Fayz» ishlab chiqarish kooperativi",
   shortName: "Zaynur Diyor Fayz",
 
-  // TODO: real Telegram username kerak, masalan "zdf_uniform"
-  telegramUsername: "",
+  telegramUsername: "toychibaevz",
   get telegramUrl() {
     return this.telegramUsername ? `https://t.me/${this.telegramUsername}` : "https://t.me/";
   },
 
-  // TODO: real WhatsApp raqami kerak, xalqaro formatda (kod bilan, +siz)
-  whatsappNumber: "",
+  whatsappNumber: "998911055306",
   get whatsappUrl() {
     return this.whatsappNumber ? `https://wa.me/${this.whatsappNumber}` : "";
   },
 
-  // TODO: real telefon raqami
-  phone: "+998900000000",
-  phoneDisplay: "+998 90 000 00 00",
+  phone: "+998911055306",
+  phoneDisplay: "+998 91 105 53 06",
 
   address: {
     region: "Farg'ona viloyati, Farg'ona tumani,",
