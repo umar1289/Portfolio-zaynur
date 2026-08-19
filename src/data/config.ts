@@ -10,11 +10,6 @@ export const siteConfig = {
     return this.telegramUsername ? `https://t.me/${this.telegramUsername}` : "https://t.me/";
   },
 
-  whatsappNumber: "998911055306",
-  get whatsappUrl() {
-    return this.whatsappNumber ? `https://wa.me/${this.whatsappNumber}` : "";
-  },
-
   phone: "+998911055306",
   phoneDisplay: "+998 91 105 53 06",
 

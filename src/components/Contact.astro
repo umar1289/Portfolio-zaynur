@@ -11,9 +11,6 @@ import { siteConfig } from "../data/config";
         <p class="contact-desc">Namuna, o'lcham jadvali yoki mato talabi bo'lsa Telegramga tashlang. Minimal hajm kelishuv asosida.</p>
         <div class="contact-actions">
           <a href={siteConfig.telegramUrl} target="_blank" rel="noopener" class="btn btn-light">Telegramda yozish</a>
-          {siteConfig.whatsappNumber && (
-            <a href={siteConfig.whatsappUrl} target="_blank" rel="noopener" class="btn btn-outline-light">WhatsApp'da yozish</a>
-          )}
           <a href={`tel:${siteConfig.phone}`} class="btn btn-outline-light">{siteConfig.phoneDisplay}</a>
         </div>
         <div class="contact-hours">{siteConfig.workHours}</div>
