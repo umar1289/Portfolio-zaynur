@@ -13,17 +13,10 @@ export interface Product {
   image?: string;
 }
 
+// Boshqa mahsulotlar vaqtincha olib tashlandi (hozircha faqat real surati
+// bor mahsulotlar ko'rsatiladi). Avvalgi to'liq ro'yxat git tarixida bor —
+// git show f8d186a:js/script.js orqali qaytarish mumkin.
 export const products: Product[] = [
-  { id: "kundalik-forma", name: "Kundalik harbiy forma", category: "harbiy", note: "Kamuflyaj, kuchaytirilgan chok" },
-  { id: "bushlat", name: "Bushlat / qishki kurtka", category: "harbiy", note: "Astarli, isitilgan" },
-  { id: "shevron", name: "Shevron va nishonlar", category: "harbiy", note: "Kompyuterli vishivka" },
-  { id: "signal-kostyum", name: "Signal rangli ishchi kostyum", category: "ishchi", note: "Svetootrajayushchiy lenta bilan" },
-  { id: "kombinezon", name: "Kombinezon", category: "ishchi", note: "Zich mato, ko'p kissali" },
-  { id: "jilet", name: "Ishchi jileti", category: "ishchi", note: "Logotip bilan, partiyali" },
-  { id: "xalat", name: "Xalat va kostyum", category: "tibbiy", note: "Yumshoq mato, tez yuvuvchi" },
-  { id: "tez-yordam", name: "Tez yordam formasi", category: "tibbiy", note: "Nishon va yozuv bilan" },
-  { id: "maktab-kostyum", name: "Maktab kostyumi", category: "maktab", note: "O'lcham to'plami bo'yicha" },
-  { id: "maktab-koylak", name: "Maktab ko'ylagi", category: "maktab", note: "Oq va rangli variant" },
-  { id: "sport-forma", name: "Sport shim va futbolka", category: "maktab", note: "Trikotaj, maktab hajmida" },
-  { id: "qorovul-forma", name: "Qorovul formasi", category: "ishchi", note: "Yozgi va qishki komplekt" },
+  { id: "kundalik-forma", name: "Kundalik harbiy forma", category: "harbiy", note: "Kamuflyaj, kuchaytirilgan chok", image: "kundalik-forma.jpg" },
+  { id: "tez-yordam", name: "Tez yordam formasi", category: "tibbiy", note: "Nishon va yozuv bilan", image: "tez-yordam.jpg" },
 ];
