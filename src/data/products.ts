@@ -18,5 +18,6 @@ export interface Product {
 // git show f8d186a:js/script.js orqali qaytarish mumkin.
 export const products: Product[] = [
   { id: "kundalik-forma", name: "Kundalik harbiy forma", category: "harbiy", note: "Kamuflyaj, kuchaytirilgan chok", image: "kundalik-forma.png" },
+  { id: "qishki-dala-kurtkasi", name: "Qishki dala kurtkasi", category: "harbiy", note: "Kamuflyaj, mo'ynali yoqa, astarli", image: "qishki-dala-kurtkasi.jpg" },
   { id: "tez-yordam", name: "Tez yordam formasi", category: "tibbiy", note: "Nishon va yozuv bilan", image: "tez-yordam.png" },
 ];
