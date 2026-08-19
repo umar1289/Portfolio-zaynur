@@ -17,6 +17,4 @@ export const siteConfig = {
     region: "Farg'ona viloyati, Farg'ona tumani,",
     city: "Vodil shaharchasi",
   },
-
-  workHours: "Dushanba–Shanba · 08:00–18:00",
 };

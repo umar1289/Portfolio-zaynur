@@ -19,11 +19,6 @@ const heroImageModules = import.meta.glob<ImageModule>(
   { eager: true },
 );
 
-const processImageModules = import.meta.glob<ImageModule>(
-  "/src/assets/images/process/*.{jpeg,jpg,png,webp,avif}",
-  { eager: true },
-);
-
 function basename(path: string): string {
   return path.split("/").pop() ?? path;
 }
@@ -34,18 +29,13 @@ function toMap(modules: Record<string, ImageModule>): Map<string, ImageMetadata>
 
 const productImages = toMap(productImageModules);
 const heroImages = toMap(heroImageModules);
-const processImages = toMap(processImageModules);
 
 /** Look up a product photo by the `image` filename set in `src/data/products.ts`. */
 export function findProductImage(filename: string | undefined): ImageMetadata | undefined {
   return filename ? productImages.get(filename) : undefined;
 }
 
-/** Single-slot lookups: drop exactly one file in the folder, any filename. */
+/** Single-slot lookup: drop exactly one file in the folder, any filename. */
 export function getHeroImage(): ImageMetadata | undefined {
   return heroImages.values().next().value;
-}
-
-export function getProcessImage(): ImageMetadata | undefined {
-  return processImages.values().next().value;
 }
