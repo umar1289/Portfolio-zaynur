@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ZDF — katalog admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: oklch(0.955 0.006 250);
+    --text: oklch(0.26 0.02 250);
+    --muted: oklch(0.45 0.02 250);
+    --border: oklch(0.85 0.01 250);
+    --card: oklch(0.99 0.003 250);
+    --accent: oklch(0.5 0.13 248);
+    --green: oklch(0.32 0.038 128);
+    --danger: oklch(0.5 0.16 25);
+    --ok: oklch(0.45 0.12 150);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: Archivo, Helvetica, sans-serif; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+  header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; margin: 0; }
+  .sub {
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .lead { color: var(--muted); font-size: 15px; margin: 0 0 28px; line-height: 1.5; }
+
+  .panel { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 22px; margin-bottom: 22px; }
+  .panel h2 { font-size: 17px; font-weight: 700; margin: 0 0 16px; }
+
+  label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+  .hint { font-weight: 400; color: var(--muted); }
+  input[type=text], select, textarea {
+    width: 100%; padding: 10px 12px; font: inherit; font-size: 15px;
+    border: 1px solid var(--border); border-radius: 4px; background: #fff; color: inherit;
+  }
+  input[type=text]:focus, select:focus, textarea:focus, button:focus-visible, .drop:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 1px;
+  }
+  .field { margin-bottom: 16px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .drop {
+    border: 2px dashed var(--border); border-radius: 5px; padding: 20px; text-align: center;
+    color: var(--muted); cursor: pointer; background: #fff; font-size: 14px;
+  }
+  .drop.over { border-color: var(--accent); color: var(--accent); }
+  .drop img { max-height: 150px; border-radius: 3px; display: block; margin: 0 auto 8px; }
+
+  button {
+    font: inherit; font-weight: 600; padding: 11px 18px; border-radius: 4px;
+    border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-primary { background: var(--text); color: var(--bg); }
+  .btn-primary:hover:not(:disabled) { background: var(--accent); }
+  .btn-publish { background: var(--green); color: #fff; }
+  .btn-publish:hover:not(:disabled) { filter: brightness(1.15); }
+  .btn-ghost { background: transparent; border-color: var(--border); color: var(--muted); padding: 6px 10px; font-size: 13px; }
+  .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+  .btn-danger { background: transparent; border-color: transparent; color: var(--danger); padding: 6px 10px; font-size: 13px; }
+  .btn-danger:hover { text-decoration: underline; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .item { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .item:last-child { border-bottom: 0; }
+  .thumb { width: 64px; height: 80px; object-fit: cover; border-radius: 3px; background: oklch(0.92 0.01 250); }
+  .thumb.empty { display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: var(--muted); text-align: center; padding: 4px; }
+  .item-name { font-weight: 600; font-size: 15px; }
+  .item-meta { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+  .item-note { font-size: 14px; color: var(--muted); margin-top: 3px; }
+  .item-actions { display: flex; gap: 4px; align-items: center; }
+
+  .publish-bar { position: sticky; bottom: 0; background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; box-shadow: 0 4px 20px oklch(0.26 0.02 250 / 0.1); }
+  .pending { font-size: 14px; color: var(--muted); }
+  .pending strong { color: var(--text); }
+
+  .msg { padding: 12px 14px; border-radius: 4px; font-size: 14px; margin-bottom: 16px; white-space: pre-wrap; line-height: 1.5; }
+  .msg.ok { background: oklch(0.93 0.05 150); color: var(--ok); }
+  .msg.err { background: oklch(0.93 0.05 25); color: var(--danger); }
+  .empty-state { color: var(--muted); font-size: 15px; padding: 8px 0; }
+  @media (max-width: 620px) { .row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Katalog</h1>
+    <span class="sub">ZDF admin</span>
+  </header>
+  <p class="lead">Mahsulot qo'shing yoki o'chiring, so'ng pastdagi <strong>«Saytga chiqarish»</strong> tugmasini bosing.</p>
+
+  <div id="msg"></div>
+
+  <div class="panel">
+    <h2>Yangi mahsulot</h2>
+    <form id="form">
+      <div class="field">
+        <label for="name">Nomi</label>
+        <input type="text" id="name" required placeholder="Masalan: Qishki dala kurtkasi">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="category">Kategoriya</label>
+          <select id="category"></select>
+        </div>
+        <div class="field">
+          <label for="note">Qisqa izoh <span class="hint">— ixtiyoriy</span></label>
+          <input type="text" id="note" placeholder="Masalan: Kamuflyaj, mo'ynali yoqa">
+        </div>
+      </div>
+      <div class="field">
+        <label>Surat</label>
+        <div class="drop" id="drop" tabindex="0" role="button">
+          <div id="dropText">Rasmni shu yerga tashlang yoki bosing<br><span class="hint">JPG, PNG, WebP · vertikal (3:4) eng yaxshi ko'rinadi</span></div>
+        </div>
+        <input type="file" id="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+      </div>
+      <button type="submit" class="btn-primary" id="submit">Qo'shish</button>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2>Katalogdagi mahsulotlar (<span id="count">0</span>)</h2>
+    <div id="list"></div>
+  </div>
+
+  <div class="publish-bar">
+    <div class="pending" id="pending"></div>
+    <button class="btn-publish" id="publish">Saytga chiqarish</button>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let categories = [];
+let imageData = null;
+let imageName = null;
+
+function showMsg(text, kind) {
+  $("msg").innerHTML = `<div class="msg ${kind}">${text.replace(/</g, "&lt;")}</div>`;
+  if (kind === "ok") setTimeout(() => { $("msg").innerHTML = ""; }, 6000);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function api(url, options = {}) {
+  const res = await fetch(url, options);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || "Xatolik yuz berdi");
+  return data;
+}
+
+function renderPending(n) {
+  $("pending").innerHTML = n > 0
+    ? `<strong>${n} ta o'zgarish</strong> hali saytda emas`
+    : "Hammasi saytda — yangi o'zgarish yo'q";
+  $("publish").disabled = n === 0;
+}
+
+function render(data) {
+  categories = data.categories;
+  $("category").innerHTML = categories.map((c) => `<option value="${c.id}">${c.label}</option>`).join("");
+  $("count").textContent = data.products.length;
+  renderPending(data.pending);
+
+  if (data.products.length === 0) {
+    $("list").innerHTML = '<div class="empty-state">Hozircha mahsulot yo\'q.</div>';
+    return;
+  }
+
+  $("list").innerHTML = data.products.map((p, i) => {
+    const label = (categories.find((c) => c.id === p.category) || {}).label || p.category;
+    const thumb = p.image
+      ? `<img class="thumb" src="/media/${encodeURIComponent(p.image)}" alt="">`
+      : '<div class="thumb empty">surat yo\'q</div>';
+    return `
+      <div class="item">
+        ${thumb}
+        <div>
+          <div class="item-name">${p.name}</div>
+          <div class="item-meta">${label}</div>
+          ${p.note ? `<div class="item-note">${p.note}</div>` : ""}
+        </div>
+        <div class="item-actions">
+          <button class="btn-ghost" data-move="up" data-id="${p.id}" ${i === 0 ? "disabled" : ""} title="Yuqoriga">↑</button>
+          <button class="btn-ghost" data-move="down" data-id="${p.id}" ${i === data.products.length - 1 ? "disabled" : ""} title="Pastga">↓</button>
+          <button class="btn-danger" data-delete="${p.id}" data-name="${p.name}">O'chirish</button>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+async function load() {
+  try { render(await api("/api/products")); }
+  catch (err) { showMsg(err.message, "err"); }
+}
+
+/* image picker */
+const drop = $("drop");
+const fileInput = $("file");
+drop.addEventListener("click", () => fileInput.click());
+drop.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInput.click(); } });
+drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+drop.addEventListener("drop", (e) => {
+  e.preventDefault();
+  drop.classList.remove("over");
+  if (e.dataTransfer.files[0]) pickFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener("change", () => { if (fileInput.files[0]) pickFile(fileInput.files[0]); });
+
+function pickFile(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    imageData = reader.result;
+    imageName = file.name;
+    $("dropText").innerHTML = `<img src="${imageData}" alt=""><span class="hint">${file.name} — almashtirish uchun bosing</span>`;
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetForm() {
+  $("form").reset();
+  imageData = null;
+  imageName = null;
+  $("dropText").innerHTML = 'Rasmni shu yerga tashlang yoki bosing<br><span class="hint">JPG, PNG, WebP · vertikal (3:4) eng yaxshi ko\'rinadi</span>';
+}
+
+$("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("submit").disabled = true;
+  try {
+    await api("/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: $("name").value, category: $("category").value, note: $("note").value, imageData, imageName }),
+    });
+    resetForm();
+    await load();
+    showMsg("Mahsulot qo'shildi. Saytda ko'rinishi uchun «Saytga chiqarish» tugmasini bosing.", "ok");
+  } catch (err) {
+    showMsg(err.message, "err");
+  } finally {
+    $("submit").disabled = false;
+  }
+});
+
+$("list").addEventListener("click", async (e) => {
+  const del = e.target.closest("[data-delete]");
+  const move = e.target.closest("[data-move]");
+  try {
+    if (del) {
+      if (!confirm(`"${del.dataset.name}" o'chirilsinmi?`)) return;
+      await api(`/api/products/${encodeURIComponent(del.dataset.delete)}`, { method: "DELETE" });
+      await load();
+      showMsg("O'chirildi. «Saytga chiqarish» tugmasini bosishni unutmang.", "ok");
+    } else if (move) {
+      await api(`/api/products/${encodeURIComponent(move.dataset.id)}/move`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ direction: move.dataset.move }),
+      });
+      await load();
+    }
+  } catch (err) { showMsg(err.message, "err"); }
+});
+
+$("publish").addEventListener("click", async () => {
+  $("publish").disabled = true;
+  $("publish").textContent = "Yuborilmoqda…";
+  try {
+    const res = await api("/api/publish", { method: "POST" });
+    showMsg(res.message, "ok");
+    await load();
+  } catch (err) {
+    showMsg(err.message, "err");
+  } finally {
+    $("publish").textContent = "Saytga chiqarish";
+    await load();
+  }
+});
+
+load();
+</script>
+</body>
+</html>

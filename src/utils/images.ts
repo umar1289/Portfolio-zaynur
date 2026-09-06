@@ -30,9 +30,13 @@ function toMap(modules: Record<string, ImageModule>): Map<string, ImageMetadata>
 const productImages = toMap(productImageModules);
 const heroImages = toMap(heroImageModules);
 
-/** Look up a product photo by the `image` filename set in `src/data/products.ts`. */
+/**
+ * Look up a product photo by the `image` value set in `src/data/products.json`.
+ * Tolerates a bare filename or any path prefix — only the file name matters.
+ */
 export function findProductImage(filename: string | undefined): ImageMetadata | undefined {
-  return filename ? productImages.get(filename) : undefined;
+  if (!filename) return undefined;
+  return productImages.get(basename(filename));
 }
 
 /** Single-slot lookup: drop exactly one file in the folder, any filename. */

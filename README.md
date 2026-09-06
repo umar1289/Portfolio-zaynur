@@ -23,19 +23,32 @@ src/
   styles/       — global.css (dizayn o'zgarmagan, asl uslublar shu yerda)
 ```
 
-## Yangi mahsulot qo'shish
+## Yangi mahsulot qo'shish — admin panel
 
-`src/data/products.ts` faylini oching va massivga yangi obyekt qo'shing:
+Finder'da loyiha papkasini oching va **`Katalog admin.command`** faylini ikki
+marta bosing. Brauzerda panel ochiladi (`http://localhost:4322`):
 
-```ts
-{ id: "yangi-mahsulot", name: "Mahsulot nomi", category: "harbiy", note: "Qisqa izoh" }
-```
+1. Nomi, kategoriyasi, qisqa izohi kiritiladi
+2. Surat sudrab tashlanadi (JPG / PNG / WebP)
+3. **Qo'shish** bosiladi
+4. Oxirida **Saytga chiqarish** bosiladi — 1-2 daqiqada sayt yangilanadi
 
-`category` maydoni `src/data/categories.ts` dagi kategoriyalardan biriga mos kelishi kerak.
+Panel shu bilan birga mahsulotni o'chirish va tartibini o'zgartirish
+imkonini ham beradi. Ishni tugatgach, ochilgan Terminal oynasini yopish
+kifoya.
+
+Panel ostida oddiy fayllar turadi, ya'ni xohlasangiz qo'lda ham
+tahrirlashingiz mumkin:
+
+- ro'yxat — `src/data/products.json`
+- suratlar — `src/assets/images/products/` (fayl nomi JSON'dagi `image`
+  qiymatiga mos bo'lishi kerak)
+
+Yangi **kategoriya** qo'shish uchun `src/data/categories.ts` tahrirlanadi.
 
 ## Kontakt ma'lumotlarini yangilash
 
-`src/data/config.ts` faylida Telegram username, WhatsApp raqami, telefon va manzil turadi.
+`src/data/config.ts` faylida Telegram username, telefon va manzil turadi.
 
 ## Build
 
