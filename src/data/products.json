@@ -1,5 +1,19 @@
 [
   {
+    "id": "qishki-kurtka",
+    "name": "Qishki kurtka",
+    "category": "harbiy",
+    "note": "Mo'ynali",
+    "image": "qishki-kurtka.jpg"
+  },
+  {
+    "id": "qishki-dala-kurtkasi",
+    "name": "Qishki dala kurtkasi",
+    "category": "harbiy",
+    "note": "",
+    "image": "qishki-dala-kurtkasi.jpeg"
+  },
+  {
     "id": "tez-tibbiy-yordam-formasi",
     "name": "Tez tibbiy yordam formasi",
     "category": "tibbiy",
